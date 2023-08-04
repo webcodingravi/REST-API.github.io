@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>PHP REST API CRUD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+  
+   
+</head>
+<body>
+    <div class="header_wrapper fixed-top">
+        <h1 class="text-white text-center mt-4 fs-50">PHP REST API CRUD</h1>
+    </div>
+<div class="section">
+<div class="container">
+    <div id="error-message" class="messages"></div>
+<div id="success-message" class="messages"></div>
+   <div class="row">
+    <div class="col-12">
+       
+        <form class="from" id="search_trem">
+            <table class="table table-bordered">
+                <tr class="text-center text-white bg-success">
+                    <td><h3>PHP REST API CRUD</h3></td>
+                    <td><input type="text" name="search_trem" id="search" class="form-control" placeholder="Search..."></td>
+                </tr>
+            </table>
+            </form>
+
+            <form class="form" id="addForm">
+        <table class="table table-bordered">  
+        <tr>
+        <td>
+            
+          <label for="">FIRST NAME</label>
+            <input type="text" name="fname" class="form-control">
+
+        </td>
+        <td>
+            <label for="">LAST NAME</label>
+              <input type="text" name="lname" class="form-control">
+  
+          </td>
+        
+        </tr>
+        <tr>
+            <td>
+                <label for="">AGE</label>
+                  <input type="number" name="age" class="form-control">
+      
+              </td>
+              <td>
+                <label for="">GENDER : </label>
+                <div class="form-check-inline">
+                Male <input type="radio" name="gender" value="Male" class="form-check-input"> 
+            </div>
+             <div class="form-check-inline">
+                  Female <input type="radio" name="gender" value="Female" class="form-check-input"> 
+                </div>
+              </td>
+        </tr>
+        <tr>
+            <td><select class="form-select" name="country">
+                <option selected>Select country..</option>
+                <option value="India">India</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Uk">Uk</option>
+            </select></td>
+
+            <td>
+              <button class="btn btn-primary" type="button" id="save-btn">Submit</button>
+            </td>
+        </tr>
+    </table>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th>S.NO.</th>
+                        <th>FIRST NAME</th>
+                        <th>LAST NAME</th>
+                        <th>AGE</th>
+                        <th>GENDER</th>
+                        <th>COUNTRY</th>
+                        <th>Modify</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <tbody id="load-data">
+                     
+                    </tbody>
+                </tr>
+
+                
+                <tr>
+                    <td>
+                        <!-- Modal -->
+        
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header bg-success text-white">
+                                <h4 class="modal-title" id="staticBackdropLabel">Modify:</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form class="form" id="edit-form">
+                               <table class="table">
+                                <tr>
+                                <td><label for="">First Name :</label>
+                                 <input type="text" name="first_name" id="edit-fname"  class="form-control"></td>
+                                 <input type="text" name="sid" id="edit-id"  class="form-control" hidden=""></td>
+
+                                <td><label for="">Last Name :</label>
+                                    <input type="text" name="last_name" id="edit-lname" class="form-control"></td>
+                                 
+                                    </tr>
+                                    <tr>
+                                    <td><label for="">Age : </label>
+                                        <input type="number" name="update-age" id="edit-age" class="form-control"></td>
+
+
+                                        <td>
+                                            <label for="">Country: </label>
+
+                                            <input type="text" name="country" class="form-control" id="edit-country">
+
+                                      
+
+                                          
+                                        </td>
+
+                                </tr>
+                           
+                                <td><label for="">Gender :</label>
+                                    <input type="text" id="edit-gender" name="gender" class="form-control">
+                                    <!-- Male <input type="radio" name="update-gender" class="form-check-input" id="edit-gneder">
+                            
+                                        Female <input type="radio" name="update-gender" class="form-check-input" id="edit-gneder"> </td>
+                                 -->
+                                  <tr>
+                                  <td><button type="submit" class="btn btn-success" id="update-data">Update</button></td>
+                                </tr>
+                               </table>
+
+                            </form>
+                              </div>
+                         
+                            </div>
+                          </div>
+                        </div>
+
+                 
+                    </td>
+                </tr>
+           
+                 
+            </table>
+        </div>
+    </div>
+      
+    </div>
+  
+   </div> 
+
+   
+</div>
+
+</div>
+
+
+
+
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       $(document).ready(function(){
+       //Fetch All Records
+       function tableload() {
+        $('#load-data').html(" ");
+          $.ajax({
+              url : "http://localhost/REST%20API/api-fetch-all.php",
+              type : "GET",
+              success : function(data) {
+               if(data.status == false) {
+                  $('#load-data').append("<tr><td><h2>"+ data.message + "</h2></td></tr>")
+               }else {
+                     var sno = 1;
+                     $.each(data, function(key, value){
+                        $('#load-data').append("<tr>" 
+                                              + "<td>" + sno + "</td>" 
+                                              + "<td>" + value.first_name + "</td>" 
+                                              + "<td>" + value.last_name + "</td>" 
+                                              + "<td>" + value.age + "</td>" 
+                                              + "<td>" + value.gender + "</td>" 
+                                              + "<td>" + value.country + "</td>" 
+                                              + "<td><button class='edit-btn btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop' data-eid='"+ value.id +"'>Edit</button></td>" 
+                                                + "<td><button class='delete-btn btn btn-danger' data-id='"+ value.id +"'>Delete</button></td>" +
+                                              
+                                               "</tr>");
+
+                         sno++;
+                     });
+               }
+              }
+          });
+
+       }
+       tableload(); 
+
+       //show success or error messages
+       function message(message, status) {
+        if(status == true) {
+           $("#success-message").html(message).slideDown();
+           $("#error-message").slideUp();
+           setTimeout(function() {
+            $("#success-message").slideUp();
+           },4000);
+        }else if(status == false){
+            $("#error-message").html(message).slideDown();
+           $("#success-message").slideUp();
+           setTimeout(function() {
+            $("#error-message").slideUp();
+           },4000);
+        }
+       }
+
+       //function for form data to json object
+
+       function jsonData(targetForm) {
+        var arr = $(targetForm).serializeArray();
+          var obj = {};
+          for(var a = 0; a < arr.length; a++){
+            if(arr[a].value == " ") {
+                return false;
+            }
+            obj[arr[a].name] = arr[a].value;
+          }
+    
+          var json_string = JSON.stringify(obj);
+          
+          return json_string;
+       }
+
+
+
+       //fecth single Record
+        
+       $(document).on("click", ".edit-btn", function(){
+            var studentID = $(this).data("eid");
+            var obj = {sid : studentID};
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                url : "http://localhost/REST%20API/api-fetch-single.php",
+                type : "POST",
+                data : myJSON,
+                success : function(data) {
+                        $("#edit-id").val(data[0].id);
+                        $("#edit-fname").val(data[0].first_name);
+                        $("#edit-lname").val(data[0].last_name);
+                        $("#edit-age").val(data[0].age);
+                        $("#edit-gender").val(data[0].gender);
+
+                        $("#edit-country").val(data[0].country);
+                }
+            });
+       });
+
+
+
+
+       //INSERT NEW RECORD
+
+       $("#save-btn") .on("click", function(e){
+          e.preventDefault();
+           var jsonObj = jsonData("#addForm");
+           if(jsonObj == false) {
+               message("All field are Required.", false);
+           }else {
+             $.ajax({
+              url : "http://localhost/REST%20API/api-insert.php",
+              type : "POST",
+              data : jsonObj,
+              success : function(data) {
+                  message(data.message, data.status);
+
+                  if(data.status == true) {
+                    tableload();
+                    $("#addForm").trigger("reset");
+                  }
+              }
+             });
+           }
+         
+       });
+
+
+       //UPDATE RECORD
+
+       $("#update-data") .on("click", function(){
+        
+           var jsonObj = jsonData("#edit-form");
+           if(jsonObj == false) {
+               message("All field are Required.", false);
+           }else {
+             $.ajax({
+              url : "http://localhost/REST%20API/api-update.php",
+              type : "POST",
+              data : jsonObj,
+              success : function(data) {
+                  message(data.message, data.status);
+
+                  if(data.status == true) {
+                    $(".modal").hide();
+                    tableload();
+                   
+                    
+                  }
+              }
+             });
+           }
+         
+       });
+
+       //Delete Record
+       $(document).on("click", ".delete-btn", function() {
+            if(confirm("Do you really want to Delete this record ? ")) {
+            var studentID = $(this).data("id");
+            var row = this;
+            var obj = {sid : studentID};
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                url : "http://localhost/REST%20API/api-delete.php",
+                type : "POST",
+                data : myJSON,
+                success : function(data) {
+                    message(data.message, data.status);
+
+                  if(data.status == true) {
+                    $(row).closest("tr").fadeOut();
+                   
+                  }
+                }
+            });
+
+            }
+       });
+
+
+       //Live serach record
+
+       $("#search").on("keyup",function(){
+             var search_trem = $(this).val();
+
+             $('#load-data').html("");
+
+             $.ajax({
+                url : "http://localhost/REST%20API/api-search.php?search=" + search_trem,
+                type : "GET",
+                success : function(data) {
+                  if(data.status == false) {
+                  $('#load-data').append("<tr><td><h2>"+ data.message + "</h2></td></tr>")
+               }else {
+                     var sno = 1;
+                     $.each(data, function(key, value){
+                        $('#load-data').append("<tr>" 
+                                              + "<td>" + sno + "</td>" 
+                                              + "<td>" + value.first_name + "</td>" 
+                                              + "<td>" + value.last_name + "</td>" 
+                                              + "<td>" + value.age + "</td>" 
+                                              + "<td>" + value.gender + "</td>" 
+                                              + "<td>" + value.country + "</td>" 
+                                              + "<td><button class='edit-btn btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop' data-eid='"+ value.id +"'>Edit</button></td>" 
+                                                + "<td><button class='delete-btn btn btn-danger' data-id='"+ value.id +"'>Delete</button></td>" +
+                                              
+                                               "</tr>");
+
+                         sno++;
+                     });
+               }
+                      
+                }
+            });
+       });
+
+
+
+    });
+    </script>
+</body>
+</html>
